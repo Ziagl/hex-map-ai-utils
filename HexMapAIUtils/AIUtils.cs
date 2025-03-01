@@ -11,14 +11,14 @@ public class AIUtils
     /// <param name="numPositions">Number of player starting positions needed.</param>
     /// <param name="map">A map of binary values meaning 0 unpassable and >0 passable.</param>
     /// <returns>Returns a list of computed starting positions.</returns>
-    public static List<OffsetCoordinates> FindPlayerStartingPositions(int numPositions, List<List<int>> map)
+    public static List<OffsetCoordinates> FindPlayerStartingPositions(int numPositions, List<int> map, int rows, int columns)
     {
         List<int[]> passablePositions = new List<int[]>();
-        for (int i = 0; i < map.Count(); i++)
+        for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j < map[i].Count; j++)
+            for (int j = 0; j < columns; j++)
             {
-                if (map[i][j] != 0)
+                if (map[i * columns + j] != 0)
                 {
                     passablePositions.Add(new int[] { i, j });
                 }
