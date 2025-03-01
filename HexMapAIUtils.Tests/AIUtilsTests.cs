@@ -28,21 +28,59 @@ namespace HexMapAIUtils.Tests
             map = new()
             {
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                0, 0, 1, 1, 1, 1, 1, 0, 0, 1,
-                1, 0, 0, 1, 1, 1, 0, 0, 0, 1,
-                1, 1, 1, 1, 1, 1, 0, 0, 1, 1,
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                1, 1, 1, 1, 0, 0, 1, 1, 1, 1,
-                1, 1, 1, 1, 0, 0, 0, 1, 1, 1,
-                1, 1, 1, 1, 1, 0, 0, 1, 1, 1
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1
             };
-            startPositions = AIUtils.FindPlayerStartingPositions(5, map, 10, 10);
-            Assert.AreEqual(5, startPositions.Count);
-            Assert.IsTrue(Distance(startPositions[0], startPositions[1]) > 3.0);
-            Assert.IsTrue(Distance(startPositions[2], startPositions[3]) > 3.0);
-            Assert.IsTrue(Distance(startPositions[1], startPositions[4]) > 3.0);
+            startPositions = AIUtils.FindPlayerStartingPositions(2, map, 5, 10);
+            Assert.AreEqual(2, startPositions.Count);
+
+            // because of randomness try this complex example 10 times
+            for (int x = 0; x < 10; ++x)
+            {
+                map = new()
+                {
+                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                    0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                    0, 0, 1, 1, 1, 1, 1, 0, 0, 1,
+                    1, 0, 0, 1, 1, 1, 0, 0, 0, 1,
+                    1, 1, 1, 1, 1, 1, 0, 0, 1, 1,
+                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 0, 0, 1, 1, 1, 1,
+                    1, 1, 1, 1, 0, 0, 0, 1, 1, 1,
+                    1, 1, 1, 1, 1, 0, 0, 1, 1, 1
+                };
+                startPositions = AIUtils.FindPlayerStartingPositions(5, map, 10, 10);
+                Assert.AreEqual(5, startPositions.Count);
+                List<double> distances = new();
+                double minDistance = double.MaxValue;
+                double maxDistance = double.MinValue;
+                for (int i = 0; i < startPositions.Count(); ++i)
+                {
+                    for (int j = 0; j < startPositions.Count(); ++j)
+                    {
+                        if (i == j)
+                        {
+                            continue;
+                        }
+
+                        double distance = Distance(startPositions[i], startPositions[j]);
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                        }
+                        if (distance > maxDistance)
+                        {
+                            maxDistance = distance;
+                        }
+                        distances.Add(distance);
+                    }
+                }
+                Assert.IsTrue(maxDistance - minDistance < 7.0, $"Difference is {maxDistance - minDistance}");
+                Assert.IsTrue(minDistance >= 2.0, $"Distance is {minDistance}");
+            }
         }
 
         private double Distance(OffsetCoordinates a, OffsetCoordinates b)

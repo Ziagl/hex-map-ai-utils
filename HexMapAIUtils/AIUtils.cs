@@ -46,7 +46,7 @@ public class AIUtils
         List<OffsetCoordinates> startPositions = new List<OffsetCoordinates>();
         for (int i = 0; i < numPositions; i++)
         {
-            startPositions.Add(new OffsetCoordinates((int)centroids[i][0], (int)centroids[i][1]));
+            startPositions.Add(new OffsetCoordinates((int)centroids[i][1], (int)centroids[i][0]));
         }
 
         return startPositions;
