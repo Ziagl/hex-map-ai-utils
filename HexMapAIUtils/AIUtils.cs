@@ -46,17 +46,13 @@ public class AIUtils
         List<OffsetCoordinates> startPositions = new List<OffsetCoordinates>();
         for (int i = 0; i < numPositions; i++)
         {
-            int x = (int)centroids[i][0];
-            int y = (int)centroids[i][1];
-            if (map[y * columns + x] == 0 && x < columns - 1)
-            {
-                ++x;
-                if (map[y * columns + x] == 0 && y < rows - 1)
-                {
-                    ++y;
-                }
-            }
-            startPositions.Add(new OffsetCoordinates(x, y));
+            startPositions.Add(
+                Utils.FindNearestPosition(
+                    centroids[i][0],
+                    centroids[i][1],
+                    passablePositions
+                )
+            );
         }
 
         return startPositions;

@@ -1,4 +1,6 @@
-﻿namespace HexMapAIUtils;
+﻿using com.hexagonsimulations.HexMapBase.Geometry.Hex;
+
+namespace HexMapAIUtils;
 
 internal class Utils
 {
@@ -103,5 +105,30 @@ internal class Utils
             }
         }
         return true;
+    }
+
+    /// <summary>
+    /// Finds the nearest position of given point and list of passable positions.
+    /// </summary>
+    /// <param name="x">X Coordinate of point.</param>
+    /// <param name="y">> Coordinate of point.</param>
+    /// <param name="passablePositions">A list of points that are available.</param>
+    /// <returns>The geometrical nearest point of given list.</returns>
+    internal static OffsetCoordinates FindNearestPosition(double x, double y, List<int[]> passablePositions)
+    {
+        int foundX = 0;
+        int foundY = 0;
+        double minDistance = double.MaxValue;
+        foreach(var position in passablePositions)
+        {
+            double distance = Math.Pow(x - position[0], 2) + Math.Pow(y - position[1], 2);
+            if(distance < minDistance)
+            {
+                minDistance = distance;
+                foundX = position[0];
+                foundY = position[1];
+            }
+        }
+        return new OffsetCoordinates(foundX, foundY);
     }
 }
