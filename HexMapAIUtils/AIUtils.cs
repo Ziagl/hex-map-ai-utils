@@ -14,13 +14,13 @@ public class AIUtils
     public static List<OffsetCoordinates> FindPlayerStartingPositions(int numPositions, List<int> map, int rows, int columns)
     {
         List<int[]> passablePositions = new List<int[]>();
-        for (int i = 0; i < rows; i++)
+        for (int y = 0; y < rows; y++)
         {
-            for (int j = 0; j < columns; j++)
+            for (int x = 0; x < columns; x++)
             {
-                if (map[i * columns + j] != 0)
+                if (map[y * columns + x] != 0)
                 {
-                    passablePositions.Add(new int[] { i, j });
+                    passablePositions.Add(new int[] { x, y });
                 }
             }
         }
@@ -46,7 +46,17 @@ public class AIUtils
         List<OffsetCoordinates> startPositions = new List<OffsetCoordinates>();
         for (int i = 0; i < numPositions; i++)
         {
-            startPositions.Add(new OffsetCoordinates((int)centroids[i][1], (int)centroids[i][0]));
+            int x = (int)centroids[i][0];
+            int y = (int)centroids[i][1];
+            if (map[y * columns + x] == 0 && x < columns - 1)
+            {
+                ++x;
+                if (map[y * columns + x] == 0 && y < rows - 1)
+                {
+                    ++y;
+                }
+            }
+            startPositions.Add(new OffsetCoordinates(x, y));
         }
 
         return startPositions;

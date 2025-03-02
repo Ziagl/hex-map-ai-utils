@@ -77,6 +77,7 @@ namespace HexMapAIUtils.Tests
                         }
                         distances.Add(distance);
                     }
+                    Assert.IsTrue(map[startPositions[i].y * 10 + startPositions[i].x] > 0, "Map position is 0");
                 }
                 Assert.IsTrue(maxDistance - minDistance < 7.0, $"Difference is {maxDistance - minDistance}");
                 Assert.IsTrue(minDistance >= 2.0, $"Distance is {minDistance}");

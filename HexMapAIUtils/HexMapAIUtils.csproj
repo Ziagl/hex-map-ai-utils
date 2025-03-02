@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>Hexagon AI Utility Library</Title>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <Authors>Werner Ziegelwanger</Authors>
     <Company>Hexagon Simulations</Company>
     <Description>A library for all AI utility functions for a tiled based games.
