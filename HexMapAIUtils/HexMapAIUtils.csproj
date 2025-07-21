@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>Hexagon AI Utility Library</Title>
-    <Version>0.0.9</Version>
+    <Version>0.0.10</Version>
     <Authors>Werner Ziegelwanger</Authors>
     <Company>Hexagon Simulations</Company>
     <Description>A library for all AI utility functions for a tiled based games.
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HexMapBase" Version="0.3.8" />
+    <PackageReference Include="HexMapBase" Version="0.3.9" />
   </ItemGroup>
 
 </Project>
